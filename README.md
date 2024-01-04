@@ -28,20 +28,20 @@ Simple react app which updates the background color on clicking on different but
 
 ---
 
-### Project 2: [Project Name]
+### Project 2: Password Generator
 
-[Short description of the project]
+A password generator which rerenders the password everytime anything new is happened
 
 #### Features
 
-- Feature 1
-- Feature 2
+- random password generator
+- better user experience
 - ...
 
 #### Technologies Used
 
 - React
-- (Any other technologies/libraries used)
+- Tailwind css
 
 #### How to Run
 
