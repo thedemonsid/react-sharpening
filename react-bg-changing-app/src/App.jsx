@@ -6,6 +6,7 @@ function Button({ color, onClick }) {
       <button
         id={color}
         className={`bg-${color}-600 m-1 rounded-lg py-2 px-4 text-white `}
+        onClick={onClick}
       >
         {color}
       </button>
@@ -14,21 +15,18 @@ function Button({ color, onClick }) {
 }
 
 function App() {
-  const [bgcolor, setColor] = useState("blue");
+  const [bgcolor, setBgcolor] = useState("green");
   return (
     <>
-      <div
-        className={`fixed inset-x-0 top-0 bottom-[5%] bg-${bgcolor}-600`}
-      ></div>
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="flex justify-center mt-auto">
-          <Button color={"green"} onClick={() => setColor("green")}></Button>
-          <Button color={"blue"} onClick={() => setColor("blue")}></Button>
-          <Button color={"red"} onClick={() => setColor("red")}></Button>
+      <div className={`fixed w-[100%] h-[90%] bg-${bgcolor}-400`}></div>
+      <div className="flex justify-center items-end fixed h-[100%] w-[100%] ">
+        <div className="flex justify-center">
+          <Button color={"blue"} onClick={() => setBgcolor("blue")}></Button>
+          <Button color={"green"} onClick={() => setBgcolor("green")}></Button>
+          <Button color={"red"} onClick={() => setBgcolor("red")}></Button>
         </div>
       </div>
     </>
   );
 }
-
 export default App;
