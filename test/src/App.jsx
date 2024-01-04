@@ -18,11 +18,9 @@ function App() {
   const [bgcolor, setColor] = useState("blue");
   return (
     <>
-      <div
-        className={`fixed inset-x-0 top-0 bottom-[5%] bg-${bgcolor}-600`}
-      ></div>
-      <div className="flex items-end justify-center min-h-screen z-10">
-        <div className="flex justify-center">
+      <div className={`fixed inset-x-0 top-0 bottom-[5%] bg-${bgcolor}-600`}></div>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex justify-center mt-auto">
           <Button color={"green"} onClick={() => setColor("green")}></Button>
           <Button color={"blue"} onClick={() => setColor("blue")}></Button>
           <Button color={"red"} onClick={() => setColor("red")}></Button>
