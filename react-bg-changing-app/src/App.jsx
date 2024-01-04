@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 function Button({ color, onClick }) {
   return (
-    <div className="flex justify-around ">
+    <div className="flex justify-around" >
       <button
         id={color}
-        className={`bg-${color}-600 m-1 rounded-lg py-2 px-4 text-white `}
+        className="m-1 rounded-full py-2 px-4 text-white"
+        style={{backgroundColor:color, border: "none"}}
         onClick={onClick}
       >
         {color}
@@ -18,7 +19,7 @@ function App() {
   const [bgcolor, setBgcolor] = useState("green");
   return (
     <>
-      <div className={`fixed w-[100%] h-[90%] bg-${bgcolor}-400`}></div>
+      <div className={`fixed w-[100%] h-[90%]`} style={{backgroundColor:bgcolor}}></div>
       <div className="flex justify-center items-end fixed h-[100%] w-[100%] ">
         <div className="flex justify-center">
           <Button color={"blue"} onClick={() => setBgcolor("blue")}></Button>
