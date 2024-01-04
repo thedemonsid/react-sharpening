@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function Button({ color, onClick }) {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="flex justify-around ">
+      <button
+        id={color}
+        className={`bg-${color}-600 m-1 rounded-lg py-2 px-4 text-white `}
+      >
+        {color}
+      </button>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  const [bgcolor, setColor] = useState("blue");
+  return (
+    <>
+      <div
+        className={`fixed inset-x-0 top-0 bottom-[5%] bg-${bgcolor}-600`}
+      ></div>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex justify-center mt-auto">
+          <Button color={"green"} onClick={() => setColor("green")}></Button>
+          <Button color={"blue"} onClick={() => setColor("blue")}></Button>
+          <Button color={"red"} onClick={() => setColor("red")}></Button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;
