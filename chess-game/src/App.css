@@ -1,0 +1,30 @@
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 800px;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px; /* adjust this value as needed */
+}
+.light {
+  background-color: #f0d9b5;
+}
+
+.dark {
+  background-color: #b58863;
+}
+.container {
+  margin-top: 10vh;
+}
+
+.selected {
+  box-shadow: 0 0 10px 5px #63b58f;
+  
+}
