@@ -1,76 +1,81 @@
+import React, { useState } from "react";
 import "./App.css";
-import { useState, useEffect } from "react";
-let symbols = {
-  'w-pawn': '♙',
-  'w-horse': '♘',
-  'w-bishop': '♗',
-  'w-rook': '♖',
-  'w-queen': '♕',
-  'w-king': '♔',
-  'b-pawn': '♟',
-  'b-horse': '♞',
-  'b-bishop': '♝',
-  'b-rook': '♜',
-  'b-queen': '♛',
-  'b-king': '♚'
-};
-let initialBoardState = [
-  ['b-rook', 'b-horse', 'b-bishop', 'b-queen', 'b-king', 'b-bishop', 'b-horse', 'b-rook'],
-  ['b-pawn', 'b-pawn', 'b-pawn', 'b-pawn', 'b-pawn', 'b-pawn', 'b-pawn', 'b-pawn'],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  ['w-pawn', 'w-pawn', 'w-pawn', 'w-pawn', 'w-pawn', 'w-pawn', 'w-pawn', 'w-pawn'],
-  ['w-rook', 'w-horse', 'w-bishop', 'w-queen', 'w-king', 'w-bishop', 'w-horse', 'w-rook']
-];
-
-function Square({ isLight, piece, index_col, index_row} ) {
-  const [selected, setSelected] = useState(false);
-
-  const handleClick = () => {
-    setSelected(!selected);
-  };
-
-  useEffect(() => {
-    const handleDeselect = () => {
-      setSelected(false);
-    };
-
-    if (selected) {
-      document.addEventListener('click', handleDeselect);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleDeselect);
-    };
-  }, [selected]);
-
-  index_row=index_row+1;
-  return (
-    <div 
-      className={`square ${isLight ? 'light' : 'dark'} ${piece ? 'has-piece' : ''} ${selected ? 'selected' : ''}`} 
-      onClick={handleClick}
-    >
-      {symbols[piece]}
-    </div>
-  );
-}
-
-function Row({ isEvenRow, rowIndex }) {
-  const squares = [];
-  for (let i = 0; i < 8; i++) {
-    const isLight = isEvenRow ? (i % 2 === 0) : (i % 2 !== 0);
-    squares.push(<Square isLight={isLight} piece={initialBoardState[rowIndex][i]} key={i} index_col={i} index_row={rowIndex} />);
-  }
-
-  return <div className="row">{squares}</div>;
-}
+import { Row,initialBoardState } from "./Board";
 
 const ChessBoard = () => {
+  const [board, setBoard] = useState(initialBoardState);
+
+  const handlePieceMove = (row, col, piece, color) => {
+    const newBoard = [...board];
+    if (piece && piece[0] === color) {
+      if (piece === "b-pawn" || piece === "w-pawn") {
+        if (color === "b") {
+          if (
+            newBoard[row + 1][col] === null ||
+            newBoard[row + 1][col][0] === "w"
+          ) {
+            newBoard[row + 1][col] = piece;
+            newBoard[row][col] = null;
+            setBoard(newBoard);
+            console.log(color);
+          }
+        } else if (color === "w") {
+          if (
+            newBoard[row - 1][col] === null ||
+            newBoard[row - 1][col][0] === "b"
+          ) {
+            newBoard[row - 1][col] = piece;
+            newBoard[row][col] = null;
+            setBoard(newBoard);
+            console.log(color);
+          }
+        }
+      }
+      // Add more movement logic for other pieces (rook, bishop, etc.) here
+      if (piece === "b-horse" || piece === "w-horse") {
+        const possibleMoves = [
+          [row - 2, col - 1],
+          [row - 2, col + 1],
+          [row - 1, col - 2],
+          [row - 1, col + 2],
+          [row + 1, col - 2],
+          [row + 1, col + 2],
+          [row + 2, col - 1],
+          [row + 2, col + 1],
+        ];
+
+        for (let move of possibleMoves) {
+          const [moveRow, moveCol] = move;
+          if (
+            moveRow >= 0 &&
+            moveRow < 8 &&
+            moveCol >= 0 &&
+            moveCol < 8 &&
+            (newBoard[moveRow][moveCol] === null ||
+              newBoard[moveRow][moveCol][0] !== color)
+          ) {
+            newBoard[moveRow][moveCol] = piece;
+            newBoard[row][col] = null;
+            setBoard(newBoard);
+            console.log(color);
+            break;
+          }
+        }
+      }
+    }
+  };
+
   const rows = [];
   for (let i = 0; i < 8; i++) {
-    rows.push(<Row isEvenRow={i % 2 === 0} rowIndex={i} key={i} />);
+    rows.push(
+      <Row
+        isEvenRow={i % 2 === 0}
+        rowIndex={i}
+        key={i}
+        board={board}
+        handlePieceMove={handlePieceMove}
+      />
+    );
   }
   return <div className="container">{rows}</div>;
 };

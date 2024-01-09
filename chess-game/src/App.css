@@ -24,7 +24,8 @@
   margin-top: 10vh;
 }
 
-.selected {
-  box-shadow: 0 0 10px 5px #63b58f;
-  
+.has-piece:active,
+.has-piece:focus {
+  box-shadow: 0 0 20px #cb8a8a; /* adjust the color as needed */
 }
+    
