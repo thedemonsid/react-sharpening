@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 100px; /* adjust this value as needed */
+  font-size: 100px; 
 }
 .light {
   background-color: #f0d9b5;
@@ -26,6 +26,6 @@
 
 .has-piece:active,
 .has-piece:focus {
-  box-shadow: 0 0 20px #cb8a8a; /* adjust the color as needed */
+  box-shadow: 0 0 20px #46f301; /* adjust the color as needed */
 }
     
