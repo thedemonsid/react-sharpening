@@ -12,13 +12,14 @@
   justify-content: center;
   align-items: center;
   font-size: 100px; 
+  border-radius: 1%;
 }
 .light {
-  background-color: #f0d9b5;
+  background-color: #edeed1;
 }
 
 .dark {
-  background-color: #b58863;
+  background-color: #779952;
 }
 .container {
   margin-top: 10vh;
@@ -26,6 +27,7 @@
 
 .has-piece:active,
 .has-piece:focus {
-  box-shadow: 0 0 20px #46f301; /* adjust the color as needed */
+  background-color:  #fdfd8d; /* adjust the color as needed */
+  transition: background-color 0.3s ease; /* increase the duration and add easing */
 }
     
