@@ -94,6 +94,37 @@ function rrScheduling(tasks, timeSlot) {
         }
     }
 }
+function minminScheduling(tasks) {
+  // Sort tasks by processing time in ascending order
+  tasks.sort((a, b) => a.processingTime - b.processingTime);
+
+  // Initialize an array to keep track of the completion time for each task
+  let completionTime = new Array(tasks.length).fill(0);
+
+  // Iterate through each task
+  for (let i = 0; i < tasks.length; i++) {
+    let minCompletionTime = Infinity;
+    let selectedResource = -1;
+
+    // Iterate through each resource
+    for (let j = 0; j < tasks[i].resources.length; j++) {
+      let currentCompletionTime = completionTime[j] + tasks[i].processingTime;
+
+      // Check if the current resource can complete the task sooner
+      if (currentCompletionTime < minCompletionTime) {
+        minCompletionTime = currentCompletionTime;
+        selectedResource = j;
+      }
+    }
+
+    // Assign the task to the selected resource
+    tasks[i].assignedResource = selectedResource;
+    completionTime[selectedResource] = minCompletionTime;
+  }
+
+  // Process tasks
+  taskProcessing(tasks);
+}
 //Example tasks
 let tasks = [
   new Task(1, 0, 5),
