@@ -60,24 +60,19 @@ export const initialBoardState = [
   ],
 ];
 
-function Square({ isLight, piece, index_col, index_row, handlePieceMove }) {
-  const handleClick = () => {
-    handlePieceMove(index_row, index_col, piece, piece[0]);
-  };
-
+function Square({ isLight, piece, index_col, index_row }) {
   return (
     <div
       className={`square ${isLight ? "light" : "dark"} ${
         piece ? "has-piece" : ""
       } `}
-      onClick={handleClick}
     >
       {symbols[piece]}
     </div>
   );
 }
 
-export const Row = ({ isEvenRow, rowIndex, board, handlePieceMove }) => {
+export const Row = ({ isEvenRow, rowIndex, board }) => {
   const squares = [];
   for (let i = 0; i < 8; i++) {
     const isLight = isEvenRow ? i % 2 === 0 : i % 2 !== 0;
@@ -88,7 +83,6 @@ export const Row = ({ isEvenRow, rowIndex, board, handlePieceMove }) => {
         key={i}
         index_col={i}
         index_row={rowIndex}
-        handlePieceMove={handlePieceMove}
       />
     );
   }
