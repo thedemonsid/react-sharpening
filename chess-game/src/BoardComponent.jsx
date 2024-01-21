@@ -1,12 +1,12 @@
 let symbols = {
   "w-pawn": "♙",
-  "w-horse": "♘",
+  "w-knight": "♘",
   "w-bishop": "♗",
   "w-rook": "♖",
   "w-queen": "♕",
   "w-king": "♔",
   "b-pawn": "♟",
-  "b-horse": "♞",
+  "b-knight": "♞",
   "b-bishop": "♝",
   "b-rook": "♜",
   "b-queen": "♛",
@@ -16,12 +16,12 @@ let symbols = {
 export const initialBoardState = [
   [
     "b-rook",
-    "b-horse",
+    "b-knight",
     "b-bishop",
     "b-queen",
     "b-king",
     "b-bishop",
-    "b-horse",
+    "b-knight",
     "b-rook",
   ],
   [
@@ -50,12 +50,12 @@ export const initialBoardState = [
   ],
   [
     "w-rook",
-    "w-horse",
+    "w-knight",
     "w-bishop",
     "w-queen",
     "w-king",
     "w-bishop",
-    "w-horse",
+    "w-knight",
     "w-rook",
   ],
 ];
