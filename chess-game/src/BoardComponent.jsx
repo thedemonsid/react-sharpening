@@ -60,20 +60,20 @@ export const initialBoardState = [
   ],
 ];
 
-function Square({ isLight, piece, index_col, index_row,handleClick }) {
+function Square({ isLight, piece, index_col, index_row, handleClick }) {
   return (
     <div
       className={`square ${isLight ? "light" : "dark"} ${
         piece ? "has-piece" : ""
       } `}
-      onClick={handleClick}
+      onClick={() => handleClick(index_row, index_col,piece)}
     >
       {symbols[piece]}
     </div>
   );
 }
 
-export const Row = ({ isEvenRow, rowIndex, board,handleClick }) => {
+export const Row = ({ isEvenRow, rowIndex, board, handleClick }) => {
   const squares = [];
   for (let i = 0; i < 8; i++) {
     const isLight = isEvenRow ? i % 2 === 0 : i % 2 !== 0;
@@ -84,10 +84,9 @@ export const Row = ({ isEvenRow, rowIndex, board,handleClick }) => {
         key={i}
         index_col={i}
         index_row={rowIndex}
-        onClick={handleClick}
+        handleClick={handleClick}
       />
     );
   }
-
   return <div className="row">{squares}</div>;
 };
