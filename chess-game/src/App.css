@@ -25,8 +25,8 @@
   margin-top: 10vh;  
 }
 
-.has-piece:active,
-.has-piece:focus {
+.has-piece:active
+ {
   background-color:  #fdfd8d; /* adjust the color as needed */
   transition: background-color 0.3s ease; /* increase the duration and add easing */
 }

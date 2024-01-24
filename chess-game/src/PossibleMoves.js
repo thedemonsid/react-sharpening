@@ -12,44 +12,44 @@ export function getPawnMoves(position, color) {
   const [x, y] = position;
 
   // White pawn moves
-  if (color === "white") {
+  if (color === "b") {
     // Move one step forward
     if (isValidMove(x, y + 1)) {
-      moves.push([x, y + 1]);
+      moves.push({ column: x, row: y + 1 });
     }
 
     // Move two steps forward from starting position
     if (y === 1 && isValidMove(x, y + 2)) {
-      moves.push([x, y + 2]);
+      moves.push({ column: x, row: y + 2 });
     }
 
     // Capture diagonally
     if (isValidMove(x - 1, y + 1)) {
-      moves.push([x - 1, y + 1]);
+      moves.push({ column: x - 1, row: y + 1 });
     }
     if (isValidMove(x + 1, y + 1)) {
-      moves.push([x + 1, y + 1]);
+      moves.push({ column: x + 1, row: y + 1 });
     }
   }
 
   // Black pawn moves
-  if (color === "black") {
+  if (color === "w") {
     // Move one step forward
     if (isValidMove(x, y - 1)) {
-      moves.push([x, y - 1]);
+      moves.push({ column: x, row: y - 1 });
     }
 
     // Move two steps forward from starting position
     if (y === 6 && isValidMove(x, y - 2)) {
-      moves.push([x, y - 2]);
+      moves.push({ column: x, row: y - 2 });
     }
 
     // Capture diagonally
     if (isValidMove(x - 1, y - 1)) {
-      moves.push([x - 1, y - 1]);
+      moves.push({ column: x - 1, row: y - 1 });
     }
     if (isValidMove(x + 1, y - 1)) {
-      moves.push([x + 1, y - 1]);
+      moves.push({ column: x + 1, row: y - 1 });
     }
   }
 
@@ -63,14 +63,14 @@ export function getRookMoves(position) {
   // Move vertically
   for (let i = y + 1; i < 8; i++) {
     if (isValidMove(x, i)) {
-      moves.push([x, i]);
+      moves.push({ column: x, row: i });
     } else {
       break;
     }
   }
   for (let i = y - 1; i >= 0; i--) {
     if (isValidMove(x, i)) {
-      moves.push([x, i]);
+      moves.push({ column: x, row: i });
     } else {
       break;
     }
@@ -79,14 +79,14 @@ export function getRookMoves(position) {
   // Move horizontally
   for (let i = x + 1; i < 8; i++) {
     if (isValidMove(i, y)) {
-      moves.push([i, y]);
+      moves.push({ column: i, row: y });
     } else {
       break;
     }
   }
   for (let i = x - 1; i >= 0; i--) {
     if (isValidMove(i, y)) {
-      moves.push([i, y]);
+      moves.push({ column: i, row: y });
     } else {
       break;
     }
@@ -113,7 +113,7 @@ export function getKnightMoves(position) {
   for (const move of possibleMoves) {
     const [moveX, moveY] = move;
     if (isValidMove(moveX, moveY)) {
-      moves.push(move);
+      moves.push({ column: moveX, row: moveY });
     }
   }
 
@@ -135,7 +135,7 @@ export function getBishopMoves(position) {
   for (const [dx, dy] of diagonalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push([moveX, moveY]);
+      moves.push({ column: moveX, row: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -168,7 +168,7 @@ export function getQueenMoves(position) {
   for (const [dx, dy] of diagonalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push([moveX, moveY]);
+      moves.push({ column: moveX, row: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -178,7 +178,7 @@ export function getQueenMoves(position) {
   for (const [dx, dy] of horizontalVerticalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push([moveX, moveY]);
+      moves.push({ column: moveX, row: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -209,7 +209,7 @@ export function getKingMoves(position) {
     const moveY = y + dy;
 
     if (isValidMove(moveX, moveY)) {
-      moves.push([moveX, moveY]);
+      moves.push({ column: moveX, row: moveY });
     }
   }
 
