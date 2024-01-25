@@ -67,11 +67,12 @@ const ChessBoard = () => {
             newBoard[previousMove.row][previousMove.column] = null;
             newBoard[row][col] = previousMove.piece;
             setBoard(newBoard);
+            index++;
             return true;
           }
           return false;
         });
-        index++;
+        
       }
       // killing mechanism hahahahahahahhahahaha
       if (turn[index % 2] == color && piece != null && piece[0] != color) {
@@ -81,14 +82,14 @@ const ChessBoard = () => {
             newBoard[previousMove.row][previousMove.column] = null;
             newBoard[row][col] = previousMove.piece;
             setBoard(newBoard);
+            index++;
             return true;
           }
           return false;
         });
-        index++;
+       
       }
     }
-
     setPreviousMove({ row, column: col, piece });
   };
 
