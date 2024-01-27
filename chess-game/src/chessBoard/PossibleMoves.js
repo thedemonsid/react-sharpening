@@ -7,7 +7,7 @@ export function isValidMove(x, y) {
   return false;
 }
 //Function for Pawns
-export function getPawnMoves(position, color) {
+export function getPawnMoves(position, color, board) {
   const moves = [];
   const [x, y] = position;
 
@@ -15,20 +15,20 @@ export function getPawnMoves(position, color) {
   if (color === "b") {
     // Move one step forward
     if (isValidMove(x, y + 1)) {
-      moves.push({ column: x, row: y + 1 });
+      moves.push({ X: x, Y: y + 1 });
     }
 
     // Move two steps forward from starting position
     if (y === 1 && isValidMove(x, y + 2)) {
-      moves.push({ column: x, row: y + 2 });
+      moves.push({ X: x, Y: y + 2 });
     }
 
     // Capture diagonally
-    if (isValidMove(x - 1, y + 1)) {
-      moves.push({ column: x - 1, row: y + 1 });
+    if (isValidMove(x - 1, y + 1) && board[y + 1][x - 1] !== null) {
+      moves.push({ X: x - 1, Y: y + 1 });
     }
-    if (isValidMove(x + 1, y + 1)) {
-      moves.push({ column: x + 1, row: y + 1 });
+    if (isValidMove(x + 1, y + 1) && board[y + 1][x + 1] !== null) {
+      moves.push({ X: x + 1, Y: y + 1 });
     }
   }
 
@@ -36,60 +36,68 @@ export function getPawnMoves(position, color) {
   if (color === "w") {
     // Move one step forward
     if (isValidMove(x, y - 1)) {
-      moves.push({ column: x, row: y - 1 });
+      moves.push({ X: x, Y: y - 1 });
     }
 
     // Move two steps forward from starting position
     if (y === 6 && isValidMove(x, y - 2)) {
-      moves.push({ column: x, row: y - 2 });
+      moves.push({ X: x, Y: y - 2 });
     }
 
     // Capture diagonally
-    if (isValidMove(x - 1, y - 1)) {
-      moves.push({ column: x - 1, row: y - 1 });
+    if (isValidMove(x - 1, y - 1) && board[y - 1][x - 1] !== null) {
+      moves.push({ X: x - 1, Y: y - 1 });
     }
-    if (isValidMove(x + 1, y - 1)) {
-      moves.push({ column: x + 1, row: y - 1 });
+    if (isValidMove(x + 1, y - 1) && board[y - 1][x + 1] !== null) {
+      moves.push({ X: x + 1, Y: y - 1 });
     }
   }
 
   return moves;
 }
 // Function for rook
-export function getRookMoves(position) {
+export function getRookMoves(position, board) {
   const moves = [];
   const [x, y] = position;
 
   // Move vertically
   for (let i = y + 1; i < 8; i++) {
-    if (isValidMove(x, i)) {
-      moves.push({ column: x, row: i });
-    } else {
+    if (board[i][x]) {
+      if (board[i][x][0] !== board[y][x][0]) {
+        moves.push({ X: x, Y: i });
+      }
       break;
     }
+    moves.push({ X: x, Y: i });
   }
   for (let i = y - 1; i >= 0; i--) {
-    if (isValidMove(x, i)) {
-      moves.push({ column: x, row: i });
-    } else {
+    if (board[i][x]) {
+      if (board[i][x][0] !== board[y][x][0]) {
+        moves.push({ X: x, Y: i });
+      }
       break;
     }
+    moves.push({ X: x, Y: i });
   }
 
   // Move horizontally
   for (let i = x + 1; i < 8; i++) {
-    if (isValidMove(i, y)) {
-      moves.push({ column: i, row: y });
-    } else {
+    if (board[y][i]) {
+      if (board[y][i][0] !== board[y][x][0]) {
+        moves.push({ X: i, Y: y });
+      }
       break;
     }
+    moves.push({ X: i, Y: y });
   }
   for (let i = x - 1; i >= 0; i--) {
-    if (isValidMove(i, y)) {
-      moves.push({ column: i, row: y });
-    } else {
+    if (board[y][i]) {
+      if (board[y][i][0] !== board[y][x][0]) {
+        moves.push({ X: i, Y: y });
+      }
       break;
     }
+    moves.push({ X: i, Y: y });
   }
 
   return moves;
@@ -113,14 +121,14 @@ export function getKnightMoves(position) {
   for (const move of possibleMoves) {
     const [moveX, moveY] = move;
     if (isValidMove(moveX, moveY)) {
-      moves.push({ column: moveX, row: moveY });
+      moves.push({ X: moveX, Y: moveY });
     }
   }
 
   return moves;
 }
 // Function for bishop
-export function getBishopMoves(position) {
+export function getBishopMoves(position, board) {
   const moves = [];
   const [x, y] = position;
 
@@ -135,7 +143,13 @@ export function getBishopMoves(position) {
   for (const [dx, dy] of diagonalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push({ column: moveX, row: moveY });
+      if (board[moveY][moveX]) {
+        if (board[moveY][moveX][0] !== board[y][x][0]) {
+          moves.push({ X: moveX, Y: moveY });
+        }
+        break;
+      }
+      moves.push({ X: moveX, Y: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -144,7 +158,7 @@ export function getBishopMoves(position) {
   return moves;
 }
 // Function for queen
-export function getQueenMoves(position) {
+export function getQueenMoves(position, board) {
   const moves = [];
   const [x, y] = position;
 
@@ -168,7 +182,13 @@ export function getQueenMoves(position) {
   for (const [dx, dy] of diagonalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push({ column: moveX, row: moveY });
+      if (board[moveY][moveX]) {
+        if (board[moveY][moveX][0] !== board[y][x][0]) {
+          moves.push({ X: moveX, Y: moveY });
+        }
+        break;
+      }
+      moves.push({ X: moveX, Y: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -178,7 +198,13 @@ export function getQueenMoves(position) {
   for (const [dx, dy] of horizontalVerticalMoves) {
     let [moveX, moveY] = [x + dx, y + dy];
     while (isValidMove(moveX, moveY)) {
-      moves.push({ column: moveX, row: moveY });
+      if (board[moveY][moveX]) {
+        if (board[moveY][moveX][0] !== board[y][x][0]) {
+          moves.push({ X: moveX, Y: moveY });
+        }
+        break;
+      }
+      moves.push({ X: moveX, Y: moveY });
       moveX += dx;
       moveY += dy;
     }
@@ -209,7 +235,7 @@ export function getKingMoves(position) {
     const moveY = y + dy;
 
     if (isValidMove(moveX, moveY)) {
-      moves.push({ column: moveX, row: moveY });
+      moves.push({ X: moveX, Y: moveY });
     }
   }
 

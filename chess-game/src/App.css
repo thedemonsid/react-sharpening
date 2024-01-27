@@ -4,7 +4,12 @@
   align-items: center;
   min-width: 800px;
 }
-
+.cell{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  max-width: 800px;
+}
 .square {
   width: 100px;
   height: 100px;
@@ -31,3 +36,17 @@
   transition: background-color 0.3s ease; /* increase the duration and add easing */
 }
     
+.app-bar{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.app-bar button {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
