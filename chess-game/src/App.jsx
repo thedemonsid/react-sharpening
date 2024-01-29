@@ -1,57 +1,24 @@
-import React, { Suspense } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import "./App.css";
-const ChessBoard = React.lazy(() => import("./chessBoard/ChessBoard"));
-const DashBoard = React.lazy(() => import("./DashBoard"));
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ChessBoard from './ChessBoard';
+import Tutorial from './Tutorial';
+import AI from './AI';
+import Home from './Home';
+import Contatct from './Contatct';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <AppBar></AppBar>
-        <Routes>
-          <Route
-            path="/game"
-            element={
-              <Suspense fallback="..Loading">
-                <div>
-                  <ChessBoard></ChessBoard>
-                </div>
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback="..Loading">
-                <DashBoard></DashBoard>
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path="/about"
-            element={
-              <Suspense fallback="..Loading">
-                <div>
-                  <h1>About Us</h1>
-                  <p>Welcome to our website!</p>
-                </div>
-              </Suspense>
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-};
-function AppBar() {
-  const navigate = useNavigate();
-  return (
-    <div className="app-bar">
-      <button onClick={() => navigate("/")}>Go to Home</button>
-      <button onClick={() => navigate("/game")}>Go to Game</button>
-      <button onClick={() => navigate("/about")}>About Us</button>
-    </div>
+    
+    <Router>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="/ChessBoard" element={<ChessBoard />} />
+        <Route path="/AI" element={<AI/>}/>
+        <Route path="/Home" exact element={<Home />} />
+        <Route path="/Contatct" element={<Contatct />} />
+      </Routes>
+    </Router>
   );
 }
+
 export default App;

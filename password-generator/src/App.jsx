@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useCallback } from "react";
 import { useRef } from "react";
 import Slider from "@mui/material/Slider";
 
@@ -9,7 +9,7 @@ function App() {
   const [includeNumber, setIncludeNumber] = useState(false);
   const [includeCharacter, setIncludeCharacter] = useState(false);
   // password generator function
-  function generator(num, char, length) {
+  const generator = useCallback((num, char, length)=> {
     let password = "";
     const characters = "abcdefghijklmnopqrstuvwxyz";
     const numbers = "0123456789";
@@ -54,10 +54,10 @@ function App() {
     }
 
     return password;
-  }
+  },[isCopied,length,includeCharacter,includeNumber])
   // end of password generator function
   return (
-    <div className="flex justify-center flex-col bg-gray-800 text-white min-h-screen border border-white-500 px-[25%]">
+    <div className="flex justify-center flex-col bg-gray-800 text-white min-h-screen border border-white-500 px-[25%] shadow">
       <h1 className="text-4xl font-bold text-center mt-10">
         Password Generator
       </h1>
